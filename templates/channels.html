@@ -1,0 +1,34 @@
+<html>
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+table {
+	border-collapse: collapse;
+}
+</style>
+	{% for state, schannels in channels.items() %}
+	<p>
+	{{ state }}: {{ schannels|length }}<br>
+	Total: {{ (schannels|sum(attribute="msatoshi_to_us") /100000000000) }}
+	</p>
+	<table>
+	<tr>
+		<th>ID</th>
+		{#<th>Status</th>#}
+		<th>Us</th>
+		<th>Total</th>
+		<th>%Us</th>
+	</tr>
+	{% for channel in schannels|sort(attribute="msatoshi_total", reverse=True) %}
+	<tr>
+		<td>{{ channel.alias }}</td>
+		{#<td>{% for status in channel.status %}{{ status }}<br>{% endfor %}</td>#}
+		<td>{{ (channel.msatoshi_to_us/100000000000) }}</td>
+		<td>{{ (channel.msatoshi_total/100000000000) }}</td>
+		<td>{{ ((channel.msatoshi_to_us / channel.msatoshi_total) * 100)|int }}</td>
+	</tr>
+	{% endfor %}
+	</table>
+	{% endfor %}
+</html>
