@@ -1,2 +1,2 @@
 # ozone
-Web frontend to a lightningd (c-lightning) node
+Web interface to a lightningd (c-lightning) node
